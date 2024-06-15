@@ -3,23 +3,28 @@ main {
 }
 
 .toolbar {
+    position: absolute;
+    top: 0;
     height: 80px;
+    width: auto;
 }
 
 .mat-drawer-container {
     position: absolute;
-    top: 80px;
-    height: calc(100vh - 80px);
+    top: 0;
+    height: 100vh;
     bottom: 0;
     left: 0;
     right: 0;
     background-color: yellowgreen;
+    z-index: 3;
 }
 
 .mat-toolbar {
-    height: 80px;
+    height: 60px;
     position: absolute;
-    background-color: aliceblue;
+    color: white;
+    background-color: rgb(88, 119, 147);
     z-index: 2 !important;
 }
 
@@ -27,8 +32,42 @@ main {
     position: absolute;
     right: 32px;
     z-index: 2 !important;
+    color: white
 }
 
 .drawer-content {
-    
+    //padding: 16px;
+    border-radius: 0;
+}
+
+.logo-frame {
+    height: 60px;
+    border-bottom: 2px solid rgba(30, 30, 30, 0.2);
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+}
+
+.drawer-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+        height: 60px;
+        padding: 0 12px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgba(30, 30, 30, 0.1);
+        }
+    }
+
+    img {
+        height: 32px;
+        margin-right: 12px;
+    }
 }
