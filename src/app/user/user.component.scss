@@ -1,4 +1,3 @@
-
 .add-btn {
     border-radius: 100% !important;
     height: 60px;
@@ -8,11 +7,27 @@
     right: 16px;
     background-color: rgb(88, 119, 147);
     color: white;
-    box-shadow: 2px 2px 2px rgb(0, 0, 0, 0.4);
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4) !important;
     border: none;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+    // remove standard material shadow ...actually
+    &::before,
+    &::after,
+    .mat-button-wrapper::before,
+    .mat-button-wrapper::after {
+      box-shadow: none !important;
+    }
+  
     &:hover {
-        cursor: pointer;
-        transform: scale(0.95); 
+      cursor: pointer;
+      transform: scale(0.95); 
+      border-radius: 100% !important;
+      box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4) !important; // Behalten Sie den eigenen Schatten bei
     }
   }
+
+  md.button {
+    box-shadow: none !important;
+  }
+  
