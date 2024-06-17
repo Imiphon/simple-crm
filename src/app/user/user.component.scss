@@ -1,0 +1,18 @@
+
+.add-btn {
+    border-radius: 100% !important;
+    height: 60px;
+    width: 60px;
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    background-color: rgb(88, 119, 147);
+    color: white;
+    box-shadow: 2px 2px 2px rgb(0, 0, 0, 0.4);
+    border: none;
+    transition: transform 0.3s ease;
+    &:hover {
+        cursor: pointer;
+        transform: scale(0.95); 
+    }
+  }

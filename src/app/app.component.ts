@@ -9,6 +9,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, NavigationEnd, Event } from '@angular/router';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,8 @@ import { Router, NavigationEnd, Event } from '@angular/router';
     FormsModule,
     MatCheckboxModule,
     MatListModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
