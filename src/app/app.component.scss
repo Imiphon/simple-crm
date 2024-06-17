@@ -22,7 +22,7 @@ main {
 
 .mat-toolbar {
     height: 60px;
-    position: absolute;
+    position: relative;
     color: white;
     background-color: rgb(88, 119, 147);
     z-index: 2 !important;
@@ -71,3 +71,9 @@ main {
         margin-right: 12px;
     }
 }
+
+.active {
+    font-weight: bold;
+    color: blue;
+    z-index: 5;
+  }

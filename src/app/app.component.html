@@ -1,26 +1,29 @@
 <main>
-
-
   <mat-drawer-container class="mat-drawer-container">
-    <mat-drawer class="drawer-content" #drawer opened mode="side">
+    <mat-drawer class="drawer-content" #drawer mode="side">
       <div class="logo-frame">
         Logo
       </div>
       <ul class="drawer-list">
-        <li><img src="assets/icons/dashboard.png" alt="">Dashboard </li>
-        <li><img src="assets/icons/user.png" alt="">User</li>
+        <li routerLink="/dashboard" routerLinkActive="active">
+          <img src="assets/icons/dashboard.png" alt="">Dashboard
+        </li>
+        <li routerLink="/user" routerLinkActive="active">
+          <img src="assets/icons/user.png" alt="">User
+        </li>
+        <li routerLink="/info" routerLinkActive="active" (click)="toggleDrawer()">
+          <img src="assets/icons/info.png" alt="">Info
+        </li>
       </ul>
     </mat-drawer>
     <mat-drawer-content class="main-content">
       <mat-toolbar class="mat-toolbar">
-        <button mat-icon-button class="mat-icon-button" (click)="drawer.toggle()">
+        <button mat-icon-button class="mat-icon-button" (click)="toggleDrawer()">
           <mat-icon>menu</mat-icon>
         </button>
         <span>Simple CRM</span>
       </mat-toolbar>
-      Main content
+      <router-outlet></router-outlet>
     </mat-drawer-content>
   </mat-drawer-container>
 </main>
-
-<router-outlet />
