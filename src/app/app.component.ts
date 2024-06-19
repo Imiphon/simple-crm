@@ -35,7 +35,7 @@ export class AppComponent {
   constructor(private router: Router) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
-        console.log('NavigationEnd:', event.urlAfterRedirects);
+        //console.log('NavigationEnd:', event.urlAfterRedirects);
       }
     });
   }

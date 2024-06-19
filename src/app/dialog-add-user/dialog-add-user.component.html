@@ -1,8 +1,59 @@
 <h1 mat-dialog-title>Add new User</h1>
-<div mat-dialog-content>
-  <p>Here u can add the new user.</p>
+<div mat-dialog-content class="dialog-frame">
+  <div class="name-frame">
+    <mat-form-field appearance="outline">
+      <mat-label>First Name</mat-label>
+      <input matInput placeholder="First Name">
+      <mat-icon matSuffix>person</mat-icon>
+    <!-- <mat-hint>Hint</mat-hint> -->
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Last Name</mat-label>
+      <input matInput placeholder="Last Name">
+      <mat-icon matSuffix>person</mat-icon>
+      <!-- <mat-hint>Hint</mat-hint> -->
+    </mat-form-field>
+  </div>
+  <div class="address-frame">
+    <mat-form-field appearance="outline">
+      <mat-label>Street</mat-label>
+      <input matInput placeholder="Str.">
+      <mat-icon matSuffix>home</mat-icon>
+      <!-- <mat-hint>Hint</mat-hint> -->
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Number</mat-label>
+      <input matInput placeholder="Nr.">
+      <mat-icon matSuffix>123</mat-icon>
+      <!-- <mat-hint>Hint</mat-hint> -->
+    </mat-form-field>
+  </div>
+  <div class="tel-mail-frame">
+    <form [formGroup]="form">
+      <mat-form-field appearance="outline">
+        <mat-label>Phone number</mat-label>
+        <input matInput formControlName="tel" placeholder="Phone number" required>
+        <mat-icon matSuffix>phone</mat-icon>
+        <!-- <mat-hint>Include area code</mat-hint> -->
+      </mat-form-field>
+    </form>
+    <mat-form-field appearance="outline">
+      <mat-label>Enter your email</mat-label>
+      <input
+        matInput
+        placeholder="pat@example.com"
+        [formControl]="email"
+        (blur)="updateErrorMessage()"
+        required
+      />
+      <mat-icon matSuffix>mail</mat-icon>
+      @if (email.invalid) {
+        <mat-error>{{errorMessage()}}</mat-error>
+      }
+    </mat-form-field>
+  </div>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button cdkFocusInitial>Ok</button>
+  <button mat-button [disabled]="form.invalid" cdkFocusInitial>Ok</button>
 </div>
