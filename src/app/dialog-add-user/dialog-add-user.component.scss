@@ -1,15 +1,20 @@
-.tel-mail-frame {
-    display: flex;
-}
-
-.dialog-frame {
-    display: flex;
-    flex-direction: column;
-}
-
-.name-frame,
-.address-frame,
-.tel-mail-frame {
-    display: flex;
-    gap: 8px;
-}
+  .tel-mail-frame {
+      display: flex;
+  }
+  
+  .dialog-frame {
+      display: flex;
+      flex-direction: column;
+  }
+  
+  .name-frame,
+  .address-frame,
+  .tel-mail-frame {
+      display: flex;
+      gap: 8px;
+  
+      @media (max-width: 560px) {
+          flex-direction: column;
+      }
+  }
+  
