@@ -2,12 +2,14 @@ import { ChangeDetectionStrategy, Component, Inject, signal } from '@angular/cor
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-
+import { ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormControl, FormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { User } from '../../models/user.class';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import {merge} from 'rxjs';
-import { takeUntilDestroyed } from  '@angular/core/rxjs-interop';
+import { merge } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'dialog-add-user',
@@ -15,19 +17,26 @@ import { takeUntilDestroyed } from  '@angular/core/rxjs-interop';
   styleUrls: ['./dialog-add-user.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
+  providers: [provideNativeDateAdapter()],
   imports: [
     MatDialogModule,
     MatButtonModule,
     MatFormFieldModule,
     ReactiveFormsModule,
     MatIconModule,
-    MatInputModule
+    MatInputModule,
+    MatDatepickerModule,
+    FormsModule
   ]
 })
 export class DialogAddUserComponent {
   form: FormGroup;
   readonly email = new FormControl('', [Validators.required, Validators.email]);
   errorMessage = signal('');
+  
+  user = new User();
+  birthDate: any =  Date;  // Declare the birthDate property
+
   constructor(
     public dialogRef: MatDialogRef<DialogAddUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -38,11 +47,10 @@ export class DialogAddUserComponent {
     });
 
     merge(this.email.statusChanges, this.email.valueChanges)
-    .pipe(takeUntilDestroyed())
-    .subscribe(() => this.updateErrorMessage());
+      .pipe(takeUntilDestroyed())
+      .subscribe(() => this.updateErrorMessage());
 
     this.dialogRef.updateSize('auto'); // Hier wird die Dialoggröße aktualisiert
-
   }
 
   updateErrorMessage() {
@@ -53,6 +61,13 @@ export class DialogAddUserComponent {
     } else {
       this.errorMessage.set('');
     }
+  }
+
+  saveUser() {
+    if (this.birthDate) {
+      this.user.birthday = this.birthDate.getTime();  // Convert to Unix timestamp
+    }
+    console.log(this.user);
   }
 
   onNoClick(): void {
