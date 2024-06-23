@@ -1,0 +1,9 @@
+{
+  "database": {
+    "rules": "database.rules.json"
+  },
+  "firestore": {
+    "rules": "Firebase Realtime Database Security Rules allow you to define how your data should be",
+    "indexes": " when your data can be read from and written to."
+  }
+}
