@@ -11,7 +11,8 @@ import { MatInputModule } from '@angular/material/input';
 import { merge } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UserService } from '../services/user.service'; // Import UserService
-//import { error } from 'console';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'dialog-add-user',
@@ -29,6 +30,8 @@ import { UserService } from '../services/user.service'; // Import UserService
     MatInputModule,
     MatDatepickerModule,
     FormsModule,
+    MatProgressBarModule,
+    CommonModule
   ]
 })
 export class DialogAddUserComponent {
@@ -38,7 +41,7 @@ export class DialogAddUserComponent {
 
   user = new User();
   birthDate: any = Date;  // Declare the birthDate property
-
+  loading: boolean = false;
   constructor(
     public dialogRef: MatDialogRef<DialogAddUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -53,7 +56,8 @@ export class DialogAddUserComponent {
       city: ['', Validators.required],
       zip: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      tel: ['', [Validators.required, Validators.pattern('^[0-9]+$')]]
+      tel: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      birthDate: ['', Validators.required]
     });
 
     merge(this.email.statusChanges, this.email.valueChanges)
@@ -74,15 +78,24 @@ export class DialogAddUserComponent {
   }
 
   saveUser() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+    this.loading = true;
+
+    // Copy form values to user object
+    Object.assign(this.user, this.form.value);
+
     if (this.birthDate) {
       this.user.birthday = this.birthDate.getTime();  // Convert to Unix timestamp
     }
-    console.log(this.user);
 
     this.userService.addUser(this.user).then(() => {
-      console.log('user works');
+      this.loading = false;
       this.dialogRef.close();
     }).catch(error => {
+      this.loading = false;
       console.error('error with adding user: ', error);
     });
   }

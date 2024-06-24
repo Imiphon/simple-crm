@@ -9,7 +9,7 @@ export class UserService {
   constructor(private firestore: Firestore) {}
 
   addUser(user: User) {
-    const userRef = collection(this.firestore, 'users');
+    const userRef = collection(this.firestore, 'Users');
     return addDoc(userRef, { ...user });
   }
 }

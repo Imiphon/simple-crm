@@ -29,7 +29,7 @@ constructor(){
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogAddUserComponent, {
       width: '300px',
-      data: { anyData: 'example' } // Hier können Sie beliebige Daten übergeben
+      data: { anyData: 'example' } 
     });
 
     dialogRef.afterClosed().subscribe(result => {

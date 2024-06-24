@@ -1,88 +1,100 @@
-<h1 mat-dialog-title>Add new User</h1>
-<div mat-dialog-content class="dialog-frame" style="padding-top: 16px">
-  <div class="name-frame">
-    <mat-form-field appearance="outline">
-      <mat-label>First Name</mat-label>
-      <input [(ngModel)]="user.firstName" matInput placeholder="First Name">
-      <mat-icon matSuffix>person</mat-icon>
-    <!-- <mat-hint>Hint</mat-hint> -->
-    </mat-form-field>
-    <mat-form-field  appearance="outline">
-      <mat-label>Last Name</mat-label>
-      <input [(ngModel)]="user.lastName" matInput placeholder="Last Name">
-      <mat-icon matSuffix>person</mat-icon>
-      <!-- <mat-hint>Hint</mat-hint> -->
-    </mat-form-field>
-  </div>
-
-  <div class="address-frame">
-    <mat-form-field appearance="outline">
-      <mat-label>Street</mat-label>
-      <input [(ngModel)]="user.street" matInput placeholder="Str.">
-      <mat-icon matSuffix>home</mat-icon>
-      <!-- <mat-hint>Hint</mat-hint> -->
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Number</mat-label>
-      <input [(ngModel)]="user.houseNumber" matInput placeholder="Nr.">
-      <mat-icon matSuffix>123</mat-icon>
-      <!-- <mat-hint>Hint</mat-hint> -->
-    </mat-form-field>
-  </div>
-
-  <div class="city-frame">
-    <mat-form-field appearance="outline">
-      <mat-label>City</mat-label>
-      <input [(ngModel)]="user.city" matInput placeholder="Str.">
-      <mat-icon matSuffix>home</mat-icon>
-      <!-- <mat-hint>Hint</mat-hint> -->
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Zip Code</mat-label>
-      <input  [(ngModel)]="user.zip" matInput placeholder="zip code">
-      <mat-icon matSuffix>123</mat-icon>
-      <!-- <mat-hint>Hint</mat-hint> -->
-    </mat-form-field>
-  </div>
-
-
-  <div class="tel-mail-frame">
+<div class="user-dialog-frame">
+  <h1 mat-dialog-title>Add new User</h1>
+  <div mat-dialog-content class="dialog-frame" style="padding-top: 16px">
     <form [formGroup]="form">
-      <mat-form-field appearance="outline">
-        <mat-label>Phone number</mat-label>
-        <input  [(ngModel)]="user.telNumber"  matInput formControlName="tel" placeholder="Phone number" required>
-        <mat-icon matSuffix>phone</mat-icon>
-        <!-- <mat-hint>Include area code</mat-hint> -->
-      </mat-form-field>
+      <div class="name-frame">
+        <mat-form-field appearance="outline" [class.mat-form-field-invalid]="form.get('firstName')!.invalid && form.get('firstName')!.touched">
+          <mat-label>First Name</mat-label>
+          <input [disabled]="loading" formControlName="firstName" matInput placeholder="First Name">
+          <mat-icon matSuffix>person</mat-icon>
+          <mat-error *ngIf="form.get('firstName')!.invalid && form.get('firstName')!.touched">
+            First Name is required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" [class.mat-form-field-invalid]="form.get('lastName')!.invalid && form.get('lastName')!.touched">
+          <mat-label>Last Name</mat-label>
+          <input [disabled]="loading" formControlName="lastName" matInput placeholder="Last Name">
+          <mat-icon matSuffix>person</mat-icon>
+          <mat-error *ngIf="form.get('lastName')!.invalid && form.get('lastName')!.touched">
+            Last Name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="address-frame">
+        <mat-form-field appearance="outline" [class.mat-form-field-invalid]="form.get('street')!.invalid && form.get('street')!.touched">
+          <mat-label>Street</mat-label>
+          <input [disabled]="loading" formControlName="street" matInput placeholder="Str.">
+          <mat-icon matSuffix>home</mat-icon>
+          <mat-error *ngIf="form.get('street')!.invalid && form.get('street')!.touched">
+            Street is required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" [class.mat-form-field-invalid]="form.get('houseNumber')!.invalid && form.get('houseNumber')!.touched">
+          <mat-label>Number</mat-label>
+          <input [disabled]="loading" formControlName="houseNumber" matInput placeholder="Nr.">
+          <mat-icon matSuffix>123</mat-icon>
+          <mat-error *ngIf="form.get('houseNumber')!.invalid && form.get('houseNumber')!.touched">
+            Please enter a valid House Number 
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="city-frame">
+        <mat-form-field appearance="outline" [class.mat-form-field-invalid]="form.get('city')!.invalid && form.get('city')!.touched">
+          <mat-label>City</mat-label>
+          <input [disabled]="loading" formControlName="city" matInput placeholder="City">
+          <mat-icon matSuffix>home</mat-icon>
+          <mat-error *ngIf="form.get('city')!.invalid && form.get('city')!.touched">
+            City is required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" [class.mat-form-field-invalid]="form.get('zip')!.invalid && form.get('zip')!.touched">
+          <mat-label>Zip Code</mat-label>
+          <input [disabled]="loading" formControlName="zip" matInput placeholder="Zip Code">
+          <mat-icon matSuffix>123</mat-icon>
+          <mat-error *ngIf="form.get('zip')!.invalid && form.get('zip')!.touched">
+            Please enter a valid Zip Code
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="tel-mail-frame">
+        <mat-form-field appearance="outline" [class.mat-form-field-invalid]="form.get('tel')!.invalid && form.get('tel')!.touched">
+          <mat-label>Phone number</mat-label>
+          <input [disabled]="loading" formControlName="tel" matInput placeholder="Phone number" required>
+          <mat-icon matSuffix>phone</mat-icon>
+          <mat-error *ngIf="form.get('tel')!.invalid && form.get('tel')!.touched">
+            Please enter a valid Phone number
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" [class.mat-form-field-invalid]="form.get('email')!.invalid && form.get('email')!.touched">
+          <mat-label>Email</mat-label>
+          <input [disabled]="loading" formControlName="email" matInput placeholder="pat@example.com" required />
+          <mat-icon matSuffix>mail</mat-icon>
+          <mat-error *ngIf="form.get('email')!.invalid && form.get('email')!.touched">
+            {{ errorMessage() }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="personal-frame">
+        <mat-form-field appearance="outline" style="width: 248px;" [class.mat-form-field-invalid]="form.get('birthDate')!.invalid && form.get('birthDate')!.touched">
+          <mat-label>Date of birth</mat-label>
+          <input [disabled]="loading" formControlName="birthDate" matInput [matDatepicker]="picker">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="form.get('birthDate')!.invalid && form.get('birthDate')!.touched">
+            Please enter a valid date
+          </mat-error>
+        </mat-form-field>
+      </div>
     </form>
-    <mat-form-field appearance="outline">
-      <mat-label>Email</mat-label>
-      <input
-      [(ngModel)]="user.email" 
-        matInput
-        placeholder="pat@example.com"
-        [formControl]="email"
-        (blur)="updateErrorMessage()"
-        required
-      />
-      <mat-icon matSuffix>mail</mat-icon>
-      @if (email.invalid) {
-        <mat-error>{{errorMessage()}}</mat-error>
-      }
-    </mat-form-field>
   </div>
-  <div class="personal-frame">
-    <mat-form-field appearance="outline" style="width: 248px;">
-      <mat-label>Date of birth</mat-label>
-      <input  [(ngModel)]="birthDate" matInput [matDatepicker]="picker">
-      <mat-hint>MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
- 
+  <div mat-dialog-actions>
+    <button mat-button [disabled]="form.invalid || loading" (click)="onNoClick()">Cancel</button>
+    <button mat-button [disabled]="form.invalid || loading" (click)="saveUser()">Ok</button>
   </div>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button (click)="saveUser()" >Ok</button>
+  <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
 </div>
