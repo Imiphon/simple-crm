@@ -5,7 +5,7 @@ street: string;
 houseNumber: number;
 city: string;
 zip: string; 
-telNumber: number;
+tel: number;
 email: string;
 birthday: number;
 
@@ -16,7 +16,7 @@ this.street  = obj ? obj.street : '';
 this.houseNumber  = obj ? obj.houseNumber : '';
 this.city  = obj ? obj.city : '';
 this.zip  = obj ? obj.zip : '';
-this.telNumber  = obj ? obj.telNumber : null;
+this.tel  = obj ? obj.tel : null;
 this.email  = obj ? obj.email : '';
 this.birthday  = obj ? obj.birthday : null;  //timestamp
 }

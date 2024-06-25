@@ -40,7 +40,7 @@ export class DialogAddUserComponent {
   errorMessage = signal('');
 
   user = new User();
-  birthDate: any = Date;  // Declare the birthDate property
+  //birthDate: any = Date;  // Declare the birthDate property
   loading: boolean = false;
   constructor(
     public dialogRef: MatDialogRef<DialogAddUserComponent>,
@@ -52,12 +52,12 @@ export class DialogAddUserComponent {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       street: ['', Validators.required],
-      houseNumber: [''],
+      houseNumber: ['', Validators.required],
       city: ['', Validators.required],
       zip: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       tel: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-      birthDate: ['', Validators.required]
+      birthday: ['', Validators.required] //full Date-info
     });
 
     merge(this.email.statusChanges, this.email.valueChanges)
@@ -78,6 +78,7 @@ export class DialogAddUserComponent {
   }
 
   saveUser() {
+    debugger
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -87,8 +88,9 @@ export class DialogAddUserComponent {
     // Copy form values to user object
     Object.assign(this.user, this.form.value);
 
-    if (this.birthDate) {
-      this.user.birthday = this.birthDate.getTime();  // Convert to Unix timestamp
+    const birthDateValue = this.form.get('birthday')?.value;
+    if (birthDateValue instanceof Date) {
+      this.user.birthday = birthDateValue.getTime();  // Convert to Unix timestamp
     }
 
     this.userService.addUser(this.user).then(() => {
