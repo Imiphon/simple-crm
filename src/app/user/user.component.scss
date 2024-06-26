@@ -1,3 +1,29 @@
+.main-frame {
+  margin: 12px;
+}
+
+mat-card-content {
+  display: flex;
+  justify-content: center;
+}
+
+table {
+  width: 80vw;
+  padding: 0 2vw;
+}
+
+tr {
+  display: flex;
+  justify-content: space-between;
+
+  
+}
+
+th, td {
+  width:-webkit-fill-available;
+  text-align: start;
+}
+
 .add-btn {
     border-radius: 100% !important;
     height: 60px;
@@ -30,4 +56,6 @@
   md.button {
     box-shadow: none !important;
   }
+
+
   

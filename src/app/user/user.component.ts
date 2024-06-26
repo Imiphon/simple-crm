@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.component';
 import { User } from '../../models/user.class';
+import {MatCardModule} from '@angular/material/card';
 
 @Component({
   selector: 'app-user',
@@ -11,7 +12,8 @@ import { User } from '../../models/user.class';
   imports: [
     MatIconModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCardModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './user.component.html',
