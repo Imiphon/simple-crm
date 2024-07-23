@@ -3,14 +3,16 @@
         <mat-card-content>
             <table>
                 <tr>
+                    <th>Pre Name</th>
                     <th>Name</th>
                     <th>E-Mail</th>
                     <th>City</th>
                 </tr>
-                <tr>
-                    <td>Egon</td>
-                    <td>e&#64;a.de</td>
-                    <td>Berlin</td>
+                <tr *ngFor="let user of users">
+                    <td>{{user.firstName}}</td>
+                    <td>{{user.lastName}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.city}}</td>
                 </tr>
             </table>
         </mat-card-content>

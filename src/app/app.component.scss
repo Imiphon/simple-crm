@@ -46,6 +46,10 @@ main {
     padding: 0 16px;
     display: flex;
     align-items: center;
+
+    img {
+        width: 64px;
+    }
 }
 
 .drawer-list {

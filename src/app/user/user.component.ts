@@ -1,10 +1,16 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, DestroyRef, ChangeDetectorRef } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.component';
 import { User } from '../../models/user.class';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { UserService } from '../services/user.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user',
@@ -13,25 +19,37 @@ import {MatCardModule} from '@angular/material/card';
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
-    MatCardModule
+    MatCardModule,
+    MatProgressBarModule,
+    CommonModule,
+    FormsModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
-export class UserComponent {
+export class UserComponent implements OnInit {
   readonly dialog = inject(MatDialog);
+  users: User[] = [];
+  readonly destroyRef = inject(DestroyRef);
+  private cdr = inject(ChangeDetectorRef);
 
-user = new User();
+  constructor(private userService: UserService) {}
 
-constructor(){
-  
-}
+  ngOnInit(): void {
+    this.userService.getUsers()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((users: User[]) => {
+        this.users = users;
+        console.log('Users: ', this.users);   
+        this.cdr.markForCheck();             
+      });
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogAddUserComponent, {
       width: '300px',
-      data: { anyData: 'example' } 
+      data: { anyData: 'example' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
