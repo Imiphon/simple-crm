@@ -1,4 +1,5 @@
 export class User {
+customIdName: string; 
 firstName: string;
 lastName: string;
 street: string;
@@ -10,6 +11,7 @@ email: string;
 birthday: number;
 
 constructor(obj?: any){
+this.customIdName = obj ? obj.customIdName :''; 
 this.firstName = obj ? obj.firstName : '';
 this.lastName  = obj ? obj.lastName : '';
 this.street  = obj ? obj.street : '';

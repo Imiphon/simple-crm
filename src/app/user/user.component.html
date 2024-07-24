@@ -8,7 +8,7 @@
                     <th>E-Mail</th>
                     <th>City</th>
                 </tr>
-                <tr *ngFor="let user of users">
+                <tr *ngFor="let user of users" (click)="openUser(user.customIdName)" id="userID">
                     <td>{{user.firstName}}</td>
                     <td>{{user.lastName}}</td>
                     <td>{{user.email}}</td>
@@ -17,7 +17,7 @@
             </table>
         </mat-card-content>
     </mat-card>
-    
+
     <button mat-fab class="add-btn" (click)="openDialog()">
         <mat-icon>add</mat-icon>
     </button>

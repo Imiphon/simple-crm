@@ -10,7 +10,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user',
@@ -33,7 +32,6 @@ export class UserComponent implements OnInit {
   users: User[] = [];
   readonly destroyRef = inject(DestroyRef);
   private cdr = inject(ChangeDetectorRef);
-
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
@@ -46,14 +44,19 @@ export class UserComponent implements OnInit {
       });
   }
 
-  openDialog(): void {
+  openDialog(userId?: string): void {
     const dialogRef = this.dialog.open(DialogAddUserComponent, {
       width: '300px',
-      data: { anyData: 'example' }
+      data: { userId: userId }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
+  }
+
+  openUser(userId: string): void {
+    console.log('userId is:', userId);
+    this.openDialog(userId);
   }
 }

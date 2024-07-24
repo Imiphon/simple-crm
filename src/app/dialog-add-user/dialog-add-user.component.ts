@@ -57,7 +57,8 @@ export class DialogAddUserComponent {
       zip: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       tel: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-      birthday: ['', Validators.required] //full Date-info
+      birthday: ['', Validators.required], //full Date-info
+      customIdName: ['', Validators.required]
     });
 
     merge(this.email.statusChanges, this.email.valueChanges)
