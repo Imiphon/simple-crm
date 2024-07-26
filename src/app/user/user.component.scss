@@ -52,10 +52,17 @@ th, td {
       box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4) !important; // Behalten Sie den eigenen Schatten bei
     }
   }
-
-  md.button {
-    box-shadow: none !important;
+  .table-head{
+    margin-bottom: 40px;
   }
 
+.userbox{
+  height: 32px;
+  border-bottom: 2px solid rgba(88, 119, 147, 0.3);
 
-  
+  margin: 4px 0 0 4px;
+}
+.userbox:hover {
+  cursor: pointer;
+  background-color: rgba(88, 119, 147, 0.1);
+}

@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -21,7 +22,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     MatCardModule,
     MatProgressBarModule,
     CommonModule,
-    FormsModule
+    FormsModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './user.component.html',
@@ -32,6 +33,8 @@ export class UserComponent implements OnInit {
   users: User[] = [];
   readonly destroyRef = inject(DestroyRef);
   private cdr = inject(ChangeDetectorRef);
+  private router = inject(Router); // Inject the Router
+
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
@@ -57,6 +60,6 @@ export class UserComponent implements OnInit {
 
   openUser(userId: string): void {
     console.log('userId is:', userId);
-    this.openDialog(userId);
+    this.router.navigate(['/user-details', userId]); // Navigate to UserDetailsComponent
   }
 }

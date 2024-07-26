@@ -2,13 +2,13 @@
     <mat-card appearance="outlined">
         <mat-card-content>
             <table>
-                <tr>
+                <tr class="table-head">
                     <th>Pre Name</th>
                     <th>Name</th>
                     <th>E-Mail</th>
                     <th>City</th>
                 </tr>
-                <tr *ngFor="let user of users" (click)="openUser(user.customIdName)" id="userID">
+                <tr class="userbox" *ngFor="let user of users" (click)="openUser(user.customIdName)">
                     <td>{{user.firstName}}</td>
                     <td>{{user.lastName}}</td>
                     <td>{{user.email}}</td>
