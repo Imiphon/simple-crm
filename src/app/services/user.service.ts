@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, addDoc, collectionData } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, collectionData, doc, getDoc } from '@angular/fire/firestore';
 import { User } from '../../models/user.class';
-import { Observable } from "rxjs";
+import { Observable, from } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +17,10 @@ export class UserService {
   getUsers(): Observable<User[]> {
     const userRef = collection(this.firestore, 'Users');
     return collectionData(userRef, {idField: 'customIdName'}) as Observable<User[]>;
+  }
+
+  getUser(customIdName: string): Observable<User> {
+    const userDocRef = doc(this.firestore, `Users/${customIdName}`);
+    return from(getDoc(userDocRef).then(docSnap => docSnap.data() as User));
   }
 }
