@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import {MatCardModule} from '@angular/material/card';
 
 @Component({
   selector: 'app-user-details',
@@ -27,7 +28,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     MatDatepickerModule,
     FormsModule,
     MatProgressBarModule,
-    CommonModule
+    CommonModule,
+    MatCardModule
   ],
   templateUrl: './user-details.component.html',
   styleUrls: ['./user-details.component.scss'],

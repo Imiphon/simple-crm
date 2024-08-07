@@ -1,5 +1,6 @@
 main {
     position: relative;
+    width: 100%;
 }
 
 .toolbar {
@@ -12,6 +13,7 @@ main {
 .mat-drawer-container {
     position: absolute;
     top: 0;
+    width: 100%;
     height: 100vh;
     bottom: 0;
     left: 0;
