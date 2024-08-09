@@ -1,15 +1,24 @@
 <main>
-  <mat-card class="head-card" appearance="outlined">
-
-    
-      <div class="img-name-frame">
-        <img src="./assets/icons/face_24d.png" alt="">
-        <div class="name-details">
-          <h2>Max Mustermann</h2>
-        <div class="email">max&#64;maus.de</div>
-        </div>
+  <mat-card class="head-card shadow" appearance="outlined">
+    <div class="img-name-frame">
+      <img src="./assets/icons/face_24d.png" alt="">
+      <div class="name-details">
+        <!-- Zeige den Vornamen und Nachnamen an, wenn 'user' definiert ist -->
+        <h2>{{ user?.firstName }} {{ user?.lastName }}</h2>
+        <div class="email">{{ user?.email }}</div>
       </div>
-      
-    
+    </div>   
+  </mat-card>
+  <mat-card class="adress-card shadow">
+    <h6>Address</h6>
+    <address>
+      Street: {{user?.street}} {{user?.houseNumber}} <br>
+      City: {{user?.city}} <br>
+      Postal Code: {{user?.zip}} <br>
+    </address>
+    <h6>Birthday</h6>
+    <div>
+      {{ user?.birthday | date: 'shortDate' }}
+    </div>
   </mat-card>
 </main>

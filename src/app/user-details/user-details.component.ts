@@ -14,6 +14,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-user-details',
@@ -42,7 +43,8 @@ export class UserDetailsComponent implements OnInit {
   constructor(
     private userService: UserService,
     private fb: FormBuilder,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef
   ) {
     this.form = this.fb.group({
       firstName: ['', Validators.required],
@@ -66,6 +68,7 @@ export class UserDetailsComponent implements OnInit {
           this.user = user;
           this.fillForm(user);
           console.log('User data:', user); // Display user data in console
+          this.cdr.markForCheck(); // Manuell die Change Detection auslösen
         });
       } else {
         console.log('no customIdName');
@@ -75,6 +78,9 @@ export class UserDetailsComponent implements OnInit {
   }
 
   fillForm(user: User) {
+    const unixTimeStamp = user.birthday;
+    const normalDate = new Date(unixTimeStamp * 1000);
+    const formattedDate = normalDate.toLocaleDateString(); 
     this.form.patchValue({
       firstName: user.firstName,
       lastName: user.lastName,
@@ -84,7 +90,7 @@ export class UserDetailsComponent implements OnInit {
       zip: user.zip,
       email: user.email,
       tel: user.tel,
-      birthday: user.birthday,
+      birthday: formattedDate,
       customIdName: user.customIdName
     });
   }
