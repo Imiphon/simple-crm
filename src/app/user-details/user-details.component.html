@@ -1,5 +1,20 @@
 <main>
   <mat-card class="head-card shadow" appearance="outlined">
+    <button mat-fab class="more-btn" [matMenuTriggerFor]="menuHead">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+
+    <mat-menu #menuHead="matMenu">
+      <button mat-menu-item (click)="editDialogHead()">
+        <mat-icon>edit</mat-icon>
+        <span>Edit</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>delete</mat-icon>
+        <span>Delete User</span>
+      </button>
+    </mat-menu>
+
     <div class="img-name-frame">
       <img src="./assets/icons/face_24d.png" alt="">
       <div class="name-details">
@@ -10,9 +25,17 @@
     </div>   
   </mat-card>
   <mat-card class="adress-card shadow">
-    <button mat-fab class="more-btn">
+    <button mat-fab class="more-btn" [matMenuTriggerFor]="menu">
       <mat-icon>more_vert</mat-icon>
     </button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="editDialogAddress()">
+        <mat-icon>edit</mat-icon>
+        <span>Edit</span>
+      </button>
+    </mat-menu>
+
     <h6>Address</h6>
     <address>
       Street: {{user?.street}} {{user?.houseNumber}} <br>

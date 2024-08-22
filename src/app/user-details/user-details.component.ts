@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { User } from '../../models/user.class';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -13,8 +13,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { ChangeDetectorRef } from '@angular/core';
+import { MatMenuModule } from '@angular/material/menu';
+import { DialogEditHeadComponent } from '../dialog-edit-head/dialog-edit-head.component';
+import { DialogEditAddressComponent } from '../dialog-edit-address/dialog-edit-address.component';
+
 
 @Component({
   selector: 'app-user-details',
@@ -30,13 +34,15 @@ import { ChangeDetectorRef } from '@angular/core';
     FormsModule,
     MatProgressBarModule,
     CommonModule,
-    MatCardModule
+    MatCardModule,
+    MatMenuModule
   ],
   templateUrl: './user-details.component.html',
   styleUrls: ['./user-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserDetailsComponent implements OnInit {
+  readonly dialog = inject(MatDialog);
   user: User | undefined;
   form: FormGroup;
 
@@ -72,7 +78,7 @@ export class UserDetailsComponent implements OnInit {
         });
       } else {
         console.log('no customIdName');
-        
+
       }
     });
   }
@@ -80,7 +86,6 @@ export class UserDetailsComponent implements OnInit {
   fillForm(user: User) {
     const unixTimeStamp = user.birthday;
     const normalDate = new Date(unixTimeStamp * 1000);
-    const formattedDate = normalDate.toLocaleDateString(); 
     this.form.patchValue({
       firstName: user.firstName,
       lastName: user.lastName,
@@ -90,8 +95,28 @@ export class UserDetailsComponent implements OnInit {
       zip: user.zip,
       email: user.email,
       tel: user.tel,
-      birthday: formattedDate,
+      birthday: normalDate,
       customIdName: user.customIdName
     });
   }
+
+  editDialogHead(customIdName?: string): void {
+
+    this.dialog.open(DialogEditHeadComponent);
+  //  const dialogRef = this.dialog.open(DialogEditHeadComponent, {
+  //    width: '200px',
+  //    data: { userId: userId }   
+  //  });    
+
+  //  dialogRef.afterClosed().subscribe(result => {
+  //    console.log(`Dialog result: ${result}`);
+  //  });
+  }
+
+  editDialogAddress(customIdName?: string): void {
+    this.dialog.open(DialogEditAddressComponent);
+    console.log(customIdName);
+    
+  }
+
 }
