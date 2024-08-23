@@ -47,8 +47,10 @@ export class DialogAddUserComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef,
-    private userService: UserService
+    private userService: UserService,
   ) {
+
+    
     this.form = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],

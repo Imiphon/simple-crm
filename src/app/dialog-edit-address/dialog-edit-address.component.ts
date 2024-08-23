@@ -64,7 +64,7 @@ export class DialogEditAddressComponent implements OnInit{
   //    .pipe(takeUntilDestroyed())
   //    .subscribe(() => this.updateErrorMessage());
 
-    this.dialogRef.updateSize('auto'); // Hier wird die Dialoggröße aktualisiert
+    this.dialogRef.updateSize('auto'); 
   }
 
   ngOnInit() {
