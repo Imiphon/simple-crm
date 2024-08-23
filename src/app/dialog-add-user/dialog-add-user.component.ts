@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, signal, ChangeDetectorRef } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -46,6 +46,7 @@ export class DialogAddUserComponent {
     public dialogRef: MatDialogRef<DialogAddUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
+    private cdr: ChangeDetectorRef,
     private userService: UserService
   ) {
     this.form = this.fb.group({
@@ -58,14 +59,13 @@ export class DialogAddUserComponent {
       email: ['', [Validators.required, Validators.email]],
       tel: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
       birthday: ['', Validators.required], //full Date-info
-      customIdName: ['', Validators.required]
     });
 
     merge(this.email.statusChanges, this.email.valueChanges)
       .pipe(takeUntilDestroyed())
       .subscribe(() => this.updateErrorMessage());
 
-    this.dialogRef.updateSize('auto'); // Hier wird die Dialoggröße aktualisiert
+    this.dialogRef.updateSize('auto'); //  to update dialog-width
   }
 
   updateErrorMessage() {
@@ -79,7 +79,7 @@ export class DialogAddUserComponent {
   }
 
   saveUser() {
-    debugger
+    this.cdr.detectChanges();
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;

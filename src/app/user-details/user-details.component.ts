@@ -74,6 +74,7 @@ export class UserDetailsComponent implements OnInit {
           this.user = user;
           this.fillForm(user);
           console.log('User data:', user); // Display user data in console
+          
           this.cdr.markForCheck(); // Manuell die Change Detection auslösen
         });
       } else {
@@ -114,9 +115,14 @@ export class UserDetailsComponent implements OnInit {
   }
 
   editDialogAddress(customIdName?: string): void {
-    this.dialog.open(DialogEditAddressComponent);
-    console.log(customIdName);
-    
+    console.log('customIdName in user-details-component:', customIdName );
+
+    debugger
+    this.dialog.open(DialogEditAddressComponent, {
+      data: { customIdName } // Übergabe der customIdName als Daten
+    });
+    console.log('give id to edit:',customIdName);    
   }
+  
 
 }
