@@ -85,11 +85,27 @@
           </mat-error>
         </mat-form-field>
       </div>
+      <!--
+      <div class="date-frame">
+        <mat-form-field appearance="outline" style="width: 248px;"
+          [class.mat-form-field-invalid]="form.get('birthday')!.invalid && form.get('birthday')!.touched">
+          <mat-label>Date of birth</mat-label>
+          <input formControlName="birthday" matInput [matDatepicker]="picker">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="form.get('birthday')!.invalid && form.get('birthday')!.touched">
+            Please enter a valid date
+          </mat-error>
+        </mat-form-field>
+      </div>
+      -->
     </form>
+
     <div mat-dialog-actions>
       <button mat-button (click)="onNoClick()">Cancel</button>
-      <button mat-button [disabled]="form.invalid || loading" (click)="saveUser()">Ok</button>
+      <button mat-button [disabled]="form.invalid || loading" (click)="editUser()">Edit</button>
     </div>
-  
+
     <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
   </div>

@@ -6,3 +6,41 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .shadow  {
     box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.5) !important;
 }
+
+
+/* User add- & edit-styles */
+
+.tel-mail-frame {
+    display: flex;
+}
+
+.dialog-frame {
+    display: flex;
+    flex-direction: column;
+}
+
+.name-frame,
+.address-frame,
+.tel-mail-frame,
+.city-frame,
+.date-frame {
+    display: flex;
+    gap: 8px;
+  margin-bottom: 8px;
+    @media (max-width: 560px) {
+        flex-direction: column;
+    }
+}
+
+
+.mat-form-field-invalid .mat-form-field-outline {
+    color: red !important;
+}
+
+.mat-form-field-invalid .mat-form-field-ripple {
+    background-color: red !important;
+}
+
+.mat-form-field-invalid .mat-input-element {
+    border-color: red !important;
+}
