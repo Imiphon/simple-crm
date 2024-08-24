@@ -101,28 +101,25 @@ export class UserDetailsComponent implements OnInit {
     });
   }
 
-  editDialogHead(customIdName?: string): void {
-
-    this.dialog.open(DialogEditHeadComponent);
-  //  const dialogRef = this.dialog.open(DialogEditHeadComponent, {
-  //    width: '200px',
-  //    data: { userId: userId }   
-  //  });    
-
-  //  dialogRef.afterClosed().subscribe(result => {
-  //    console.log(`Dialog result: ${result}`);
-  //  });
+  editDialogHead() {
+      if (this.user?.customIdName) {
+        this.dialog.open(DialogEditHeadComponent, {
+          data: { customIdName: this.user.customIdName }
+        });
+        console.log('give id to edit:', this.user.customIdName);    
+      } else {
+        console.error('User or customIdName is undefined. Cannot open the head dialog.');
+      }
   }
 
-  editDialogAddress(customIdName?: string): void {
-    console.log('customIdName in user-details-component:', customIdName );
-
-    debugger
-    this.dialog.open(DialogEditAddressComponent, {
-      data: { customIdName } // Übergabe der customIdName als Daten
-    });
-    console.log('give id to edit:',customIdName);    
+  editDialogAddress() {
+    if (this.user?.customIdName) {
+      this.dialog.open(DialogEditAddressComponent, {
+        data: { customIdName: this.user.customIdName }
+      });
+      console.log('give id to edit:', this.user.customIdName);    
+    } else {
+      console.error('User or customIdName is undefined. Cannot open the address dialog.');
+    }
   }
-  
-
 }
