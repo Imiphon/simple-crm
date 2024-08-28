@@ -44,8 +44,8 @@ export const MY_DATE_FORMATS = {
   ],
   providers: [
     { provide: DateAdapter, useClass: NativeDateAdapter }, // Hinzufügen dieses Providers
-    { provide: MAT_DATE_LOCALE, useValue: 'en-US' }, // Optional: Locale einstellen
-    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS }, // Optional für benutzerdefinierte Formate
+    { provide: MAT_DATE_LOCALE, useValue: 'en-US' }, // local setup
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS }, // Opt for user format
   ],
   templateUrl: './dialog-edit-head.component.html',
   styleUrl: './dialog-edit-head.component.scss'
