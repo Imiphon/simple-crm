@@ -1,27 +1,8 @@
 <div class="user-dialog-frame">
-  <h1 mat-dialog-title>Edit User</h1>
+  <h1 mat-dialog-title>Edit Address</h1>
   <div mat-dialog-content class="dialog-frame" style="padding-top: 16px">
     <form [formGroup]="form">
-      <div class="name-frame">
-        <mat-form-field appearance="outline"
-          [class.mat-form-field-invalid]="form.get('firstName')!.invalid && form.get('firstName')!.touched">
-          <mat-label>First Name</mat-label>
-          <input formControlName="firstName" matInput placeholder="First Name">
-          <mat-icon matSuffix>person</mat-icon>
-          <mat-error *ngIf="form.get('firstName')!.invalid && form.get('firstName')!.touched">
-            First Name is required
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline"
-          [class.mat-form-field-invalid]="form.get('lastName')!.invalid && form.get('lastName')!.touched">
-          <mat-label>Last Name</mat-label>
-          <input formControlName="lastName" matInput placeholder="Last Name">
-          <mat-icon matSuffix>person</mat-icon>
-          <mat-error *ngIf="form.get('lastName')!.invalid && form.get('lastName')!.touched">
-            Last Name is required
-          </mat-error>
-        </mat-form-field>
-      </div>
+
 
       <div class="address-frame">
         <mat-form-field appearance="outline"
@@ -75,31 +56,8 @@
             Please enter a valid Phone number
           </mat-error>
         </mat-form-field>
-        <mat-form-field appearance="outline"
-          [class.mat-form-field-invalid]="form.get('email')!.invalid && form.get('email')!.touched">
-          <mat-label>Email</mat-label>
-          <input formControlName="email" matInput placeholder="pat@example.com" required />
-          <mat-icon matSuffix>mail</mat-icon>
-          <mat-error *ngIf="form.get('email')!.invalid && form.get('email')!.touched">
-            {{ errorMessage() }}
-          </mat-error>
-        </mat-form-field>
       </div>
-      <!--
-      <div class="date-frame">
-        <mat-form-field appearance="outline" style="width: 248px;"
-          [class.mat-form-field-invalid]="form.get('birthday')!.invalid && form.get('birthday')!.touched">
-          <mat-label>Date of birth</mat-label>
-          <input formControlName="birthday" matInput [matDatepicker]="picker">
-          <mat-hint>MM/DD/YYYY</mat-hint>
-          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-          <mat-error *ngIf="form.get('birthday')!.invalid && form.get('birthday')!.touched">
-            Please enter a valid date
-          </mat-error>
-        </mat-form-field>
-      </div>
-      -->
+
     </form>
 
     <div mat-dialog-actions>

@@ -24,7 +24,6 @@ export class UserService {
     });
   }
   
-
   getUsers(): Observable<User[]> {
     const userRef = collection(this.firestore, 'Users');
     return collectionData(userRef, {idField: 'customIdName'}) as Observable<User[]>;
@@ -33,5 +32,10 @@ export class UserService {
   getUser(customIdName: string): Observable<User> {
     const userDocRef = doc(this.firestore, `Users/${customIdName}`);
     return from(getDoc(userDocRef).then(docSnap => docSnap.data() as User));
+  }
+
+  updateUser(customIdName: string, user: Partial<User>) {
+    const userDocRef = doc(this.firestore, `Users/${customIdName}`);
+    return updateDoc(userDocRef, { ...user });
   }
 }

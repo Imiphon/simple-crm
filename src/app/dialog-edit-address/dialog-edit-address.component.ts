@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, OnInit, signal } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef, } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -11,6 +11,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CommonModule } from '@angular/common';
 import { User } from '../../models/user.class';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-dialog-edit-address',
@@ -25,7 +26,8 @@ import { User } from '../../models/user.class';
     MatDatepickerModule,
     FormsModule,
     MatProgressBarModule,
-    CommonModule
+    CommonModule,
+    MatNativeDateModule
   ],
   templateUrl: './dialog-edit-address.component.html',
   styleUrl: './dialog-edit-address.component.scss'
@@ -42,8 +44,8 @@ export class DialogEditAddressComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     @Inject(MAT_DIALOG_DATA) public data: { customIdName: string }, // Empfang der übergebenen Daten
-    private cdr: ChangeDetectorRef
-
+    private cdr: ChangeDetectorRef,
+    @Inject(Router) private router: Router // Inject the Router
   ) {
     this.form = this.fb.group({
       firstName: ['', Validators.required],
@@ -74,7 +76,7 @@ export class DialogEditAddressComponent implements OnInit {
 
   fillForm(user: User) {
     const unixTimeStamp = user.birthday;
-    const normalDate = new Date(unixTimeStamp * 1000);
+    const normalDate = new Date(unixTimeStamp);
     this.form.patchValue({
       firstName: user.firstName,
       lastName: user.lastName,
@@ -89,44 +91,34 @@ export class DialogEditAddressComponent implements OnInit {
     });
   }
 
-  //  updateErrorMessage() {
-  //    if (this.email.hasError('required')) {
-  //      this.errorMessage.set('You must enter a value');
-  //    } else if (this.email.hasError('email')) {
-  //      this.errorMessage.set('Not a valid email');
-  //    } else {
-  //      this.errorMessage.set('');
-  //    }
-  //  }
-
-editUser(){
-  console.log('editUser() starts');
+  editUser() {
+    if (this.form.valid) {
+      this.loading = true;  
+      const birthDateValue = this.form.get('birthday')?.value;
+      if (birthDateValue instanceof Date) {
+        this.form.patchValue({ birthday: birthDateValue.getTime() }); // set Unix-Timestamp
+      }
   
-}
+      const updatedUserData = this.form.value;
+  
+      this.userService.updateUser(this.data.customIdName, updatedUserData)
+        .then(() => {
+          this.loading = false;
+          this.dialogRef.close(updatedUserData); 
+          this.openUser();
+        })
+        .catch((error) => {
+          this.loading = false;
+          console.log(error);
+        });
+    }
+  }
 
-  // saveUser() {
-  //   if (this.form.invalid) {
-  //     this.form.markAllAsTouched();
-  //     return;
-  //   }
-  //   this.loading = true;
-// 
-  //   // Copy form values to user object
-  //   Object.assign(this.user, this.form.value);
-// 
-  //   const birthDateValue = this.form.get('birthday')?.value;
-  //   if (birthDateValue instanceof Date) {
-  //     this.user.birthday = birthDateValue.getTime();  // Convert to Unix timestamp
-  //   }
-// 
-  //   this.userService.addUser(this.user).then(() => {
-  //     this.loading = false;
-  //     this.dialogRef.close();
-  //   }).catch(error => {
-  //     this.loading = false;
-  //     console.error('error with adding user: ', error);
-  //   });
-  // }
+  openUser() {
+    window.location.reload();
+    const userId = this.form.get('birthday')?.value;
+    this.router.navigate(['/user-details', userId]); // Navigate to UserDetailsComponent
+  }
 
   onNoClick(): void {
     this.dialogRef.close();
